@@ -10,6 +10,8 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+yarn.lock
+package-lock
 
 # OS
 .DS_Store
@@ -17,6 +19,9 @@ lerna-debug.log*
 # Tests
 /coverage
 /.nyc_output
+
+#environments
+.env
 
 # IDEs and editors
 /.idea
