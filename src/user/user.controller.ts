@@ -16,7 +16,7 @@ import { EditProfileDto } from "./dto/edit-profile.dto";
 import { UserService } from "./user.service";
 
 @UseGuards(AtJwtGuard)
-@Controller("user")
+@Controller("users")
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

@@ -21,19 +21,13 @@ export class UserService {
 
       if (!user) throw new ForbiddenException("Unauthorized");
 
-      await this.prismaService.user.updateMany({
+      return await this.prismaService.user.update({
         where: {
           id,
         },
         data: {
           firstName,
           lastName,
-        },
-      });
-
-      return await this.prismaService.user.findUnique({
-        where: {
-          id,
         },
         select: {
           firstName: true,

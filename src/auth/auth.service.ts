@@ -225,7 +225,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
-      expiresIn: "10s",
+      //expiresIn: "10m",
     });
 
     const refreshToken = this.jwtService.signAsync(payload, {
