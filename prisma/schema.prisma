@@ -11,10 +11,28 @@ datasource db {
 }
 
 model User {
-  id            String  @id @default(uuid())
+  id            String        @id @default(uuid())
   firstName     String
   lastName      String
-  email         String  @unique
+  email         String        @unique
   password      String
   refresh_token String?
+  transactions  Transaction[]
+}
+
+model Transaction {
+  id         String   @id @default(uuid())
+  name       String
+  category   Category @default(PRODUCTS)
+  expense    Float
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+}
+
+enum Category {
+  PRODUCTS
+  ENTERTAINMENT
+  BILLS
+  OTHER
 }

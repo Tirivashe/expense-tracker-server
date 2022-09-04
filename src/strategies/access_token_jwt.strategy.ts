@@ -7,6 +7,8 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 type JwtPayload = {
   sub: string,
   email: string
+  firstName: string,
+  lastName: string
 }
 
 @Injectable()
@@ -23,8 +25,8 @@ export class AtJwtStrategy extends PassportStrategy(Strategy, "jwt") {
 
   async validate(payload: JwtPayload) {
     if (payload === null) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("Cannot get access token");
     }
-    return { id: payload.sub, email: payload.email };
+    return { id: payload.sub, email: payload.email, firstName: payload.firstName, lastName: payload.lastName };
   }
 }

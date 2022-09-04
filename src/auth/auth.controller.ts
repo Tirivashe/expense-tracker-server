@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Res, HttpCode, UseGuards } from "@nestjs/common";
+import { Controller, Post, Get, Body, Res, HttpCode, UseGuards } from "@nestjs/common";
 import { Request, Response } from "express";
 import { AuthService } from "./auth.service";
 import { AuthCredentialDto } from "./dto/auth-credentials.dto";
@@ -31,7 +31,7 @@ export class AuthController {
     return this.authService.login(authCredentials, response);
   }
 
-  @Post("refresh")
+  @Get("refresh")
   @HttpCode(HttpStatus.OK)
   @UseGuards(RtJwtGuard)
   async refresh(

@@ -25,12 +25,10 @@ export class RtJwtStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
   private static extractFromCookie(request: Request): string | null {
     const token: string | null = request.cookies["refresh_token"];
     if (!token) throw new UnauthorizedException("Refresh token not found");
-    console.log("Token found: ", token)
     return token;
   }
 
   async validate(payload: JwtPayload) {
-    console.log(payload)
     if (payload === null) {
       throw new UnauthorizedException("Cannot validate user");
     }

@@ -51,7 +51,9 @@ export class AuthService {
 
       const { access_token, refresh_token } = await this.createTokens(
         newUser.id,
-        email
+        email,
+        newUser.firstName,
+        newUser.firstName
       );
 
       await this.updateRefreshToken(newUser.id, refresh_token);
@@ -86,7 +88,9 @@ export class AuthService {
 
       const { access_token, refresh_token } = await this.createTokens(
         user.id,
-        email
+        email,
+        user.firstName,
+        user.lastName
       );
 
       await this.updateRefreshToken(user.id, refresh_token);
@@ -127,7 +131,12 @@ export class AuthService {
       if (!isRefreshTokenVerified)
         throw new ForbiddenException("User unauthorized");
 
-      const { access_token } = await this.createTokens(user.id, user.email);
+      const { access_token } = await this.createTokens(
+        user.id,
+        user.email,
+        user.firstName,
+        user.lastName
+      );
 
       return { access_token };
     } catch (err) {
@@ -167,12 +176,16 @@ export class AuthService {
     return compare(password, userPassword);
   }
 
-  private async createTokens(id: string, email: string): Promise<Tokens> {
-    const payload = { sub: id, email };
+  private async createTokens(
+    id: string,
+    email: string,
+    firstName: string,
+    lastName: string
+  ): Promise<Tokens> {
+    const payload = { sub: id, email, firstName, lastName };
 
     const accessToken = this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
-      expiresIn: "2m",
     });
 
     const refreshToken = this.jwtService.signAsync(payload, {
