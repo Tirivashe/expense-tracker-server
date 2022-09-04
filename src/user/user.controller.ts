@@ -6,15 +6,26 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  UseGuards,
 } from "@nestjs/common";
+import { HttpStatus } from "@nestjs/common/enums";
+import { AtJwtGuard } from "../guards/access_token.guards";
+import { User } from "../decorators/get-user.decorator";
+import { EditProfileDto } from "./dto/edit-profile.dto";
 import { UserService } from "./user.service";
 
+@UseGuards(AtJwtGuard)
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post("edit-profile")
-  async editProfile() {
-    return this.userService.editProfile();
+  @HttpCode(HttpStatus.OK)
+  async editProfile(
+    @Body() editProfileDto: EditProfileDto,
+    @User("id") id: string
+  ) {
+    return this.userService.editProfile(editProfileDto, id);
   }
 }
