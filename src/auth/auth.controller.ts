@@ -8,6 +8,7 @@ import { User } from "../decorators/get-user.decorator";
 import { AtJwtGuard } from "../guards/access_token.guards";
 import { RtJwtGuard } from "../guards/refresh_token.guard";
 import { Req } from "@nestjs/common/decorators";
+import { ResetPasswordDto } from "./dto/reset-user-password.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -49,5 +50,15 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response
   ): Promise<void> {
     return this.authService.logout(id, response);
+  }
+
+  @Post("reset-password")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtJwtGuard)
+  resetPassword(
+    @Body() resetPassword: ResetPasswordDto,
+    @User("id") id: string
+  ) {
+    return this.authService.resetPassword(resetPassword, id);
   }
 }

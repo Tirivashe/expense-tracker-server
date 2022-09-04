@@ -11,6 +11,7 @@ import { JwtService } from "@nestjs/jwt";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { compare, hash } from "bcrypt";
 import { ConfigService } from "@nestjs/config";
+import { ResetPasswordDto } from "./dto/reset-user-password.dto";
 
 type Tokens = {
   access_token: string;
@@ -167,6 +168,44 @@ export class AuthService {
     }
   }
 
+  async resetPassword(
+    { currentPassword, newPassword }: ResetPasswordDto,
+    id: string
+  ) {
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) throw new ForbiddenException("Unauthorized");
+
+      const isValidCurrentPassword = await this.verifyPassword(
+        currentPassword,
+        user.password
+      );
+
+      if (!isValidCurrentPassword)
+        throw new ForbiddenException("Incorrect Password");
+
+      const hashedNewPassword = await this.hashUserPassword(newPassword);
+
+      await this.prismaService.user.updateMany({
+        where: {
+          id,
+        },
+        data: {
+          password: hashedNewPassword,
+        },
+      });
+    } catch (err) {
+      if (PrismaClientKnownRequestError)
+        throw new HttpException(err.response, err.status);
+      else throw new InternalServerErrorException(err.message);
+    }
+  }
+
   private async hashUserPassword(password: string): Promise<string> {
     const HASH_SALT = 10;
     return hash(password, HASH_SALT);
@@ -186,6 +225,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
+      expiresIn: "10s",
     });
 
     const refreshToken = this.jwtService.signAsync(payload, {
