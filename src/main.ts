@@ -11,7 +11,7 @@ async function bootstrap() {
     credentials: true,
     allowedHeaders: "Content-Type, Authorization",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
-    origin: "http://localhost:3000",
+    origin: "https://expense-tracker-client-three.vercel.app",
   });
   app.setGlobalPrefix("api");
   await app.listen(5000);
