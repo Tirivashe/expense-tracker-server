@@ -14,6 +14,6 @@ async function bootstrap() {
     origin: "https://expense-tracker-client-three.vercel.app",
   });
   app.setGlobalPrefix("api");
-  await app.listen(5000);
+  await app.listen(process.env.PORT || 5000);
 }
 bootstrap();
