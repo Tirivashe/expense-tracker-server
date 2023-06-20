@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from "@nestjs/common/exceptions";
 import { Category, Transaction } from "@prisma/client";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/errors";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
 import { subMonths, subDays, sub } from "date-fns";

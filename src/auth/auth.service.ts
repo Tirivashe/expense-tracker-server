@@ -8,7 +8,7 @@ import { Request, Response } from "express";
 import { PrismaService } from "../prisma/prisma.service";
 import { AuthCredentialDto } from "./dto/auth-credentials.dto";
 import { JwtService } from "@nestjs/jwt";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/errors";
 import { compare, hash } from "bcrypt";
 import { ConfigService } from "@nestjs/config";
 import { ResetPasswordDto } from "./dto/reset-user-password.dto";

@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
   ForbiddenException,
 } from "@nestjs/common/exceptions";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/errors";
 import { PrismaService } from "../prisma/prisma.service";
 import { EditProfileDto } from "./dto/edit-profile.dto";
 
