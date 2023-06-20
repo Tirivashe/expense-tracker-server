@@ -245,7 +245,7 @@ export class AuthService {
     userId: string,
     refresh_token: string
   ): Promise<void> {
-    await this.prismaService.user.updateMany({
+    await this.prismaService.user.update({
       where: {
         id: userId,
       },
