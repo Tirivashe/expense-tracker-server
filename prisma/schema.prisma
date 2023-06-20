@@ -17,7 +17,7 @@ model User {
   lastName      String
   email         String        @unique
   password      String
-  refresh_token String?
+  refresh_token String?       @db.VarChar(300)
   transactions  Transaction[]
 }
 
