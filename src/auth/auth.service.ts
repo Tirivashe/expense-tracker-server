@@ -223,6 +223,10 @@ export class AuthService {
   ): Promise<Tokens> {
     const payload = { sub: id, email, firstName, lastName };
 
+    console.log({
+      accessTokenSecret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
+    });
+
     const accessToken = this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
       expiresIn: this.configService.get<string>("JWT_ACCESS_TOKEN_REFRESH"),
