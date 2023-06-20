@@ -57,7 +57,7 @@ export class AuthService {
         newUser.firstName
       );
 
-      await this.updateRefreshToken(newUser.id, refresh_token).catch(err => err);
+      await this.updateRefreshToken(newUser.id, refresh_token).catch(err => console.error(err));
 
       response.cookie("refresh_token", refresh_token, { httpOnly: true });
 
@@ -250,7 +250,7 @@ export class AuthService {
         id: userId,
       },
       data: {
-        refresh_token,
+        refresh_token: "123",
       },
     });
   }
