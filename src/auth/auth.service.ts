@@ -8,7 +8,7 @@ import { Request, Response } from "express";
 import { PrismaService } from "../prisma/prisma.service";
 import { AuthCredentialDto } from "./dto/auth-credentials.dto";
 import { JwtService } from "@nestjs/jwt";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/errors";
+import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcrypt";
 import { ConfigService } from "@nestjs/config";
 import { ResetPasswordDto } from "./dto/reset-user-password.dto";
@@ -63,7 +63,7 @@ export class AuthService {
 
       return { access_token };
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -101,7 +101,7 @@ export class AuthService {
         access_token,
       };
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -141,7 +141,7 @@ export class AuthService {
 
       return { access_token };
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -162,7 +162,7 @@ export class AuthService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -200,7 +200,7 @@ export class AuthService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }

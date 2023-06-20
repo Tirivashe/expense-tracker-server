@@ -3,8 +3,7 @@ import {
   HttpException,
   InternalServerErrorException,
 } from "@nestjs/common/exceptions";
-import { Category, Transaction } from "@prisma/client";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/errors";
+import { Category, Transaction, PrismaClient } from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
 import { subMonths, subDays, sub } from "date-fns";
@@ -37,7 +36,7 @@ export class TransactionsService {
 
       return { transaction };
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -61,7 +60,7 @@ export class TransactionsService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -122,7 +121,7 @@ export class TransactionsService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -144,7 +143,7 @@ export class TransactionsService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -159,7 +158,7 @@ export class TransactionsService {
       });
       return { message: "Transaction deleted" };
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
@@ -187,7 +186,7 @@ export class TransactionsService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }

@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
   ForbiddenException,
 } from "@nestjs/common/exceptions";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/errors";
+import { PrismaClient } from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import { EditProfileDto } from "./dto/edit-profile.dto";
 
@@ -35,7 +35,7 @@ export class UserService {
         },
       });
     } catch (err) {
-      if (PrismaClientKnownRequestError)
+      if (PrismaClient.PrismaClientKnownRequestError)
         throw new HttpException(err.response, err.status);
       else throw new InternalServerErrorException(err.message);
     }
