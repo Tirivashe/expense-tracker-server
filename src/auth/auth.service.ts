@@ -250,7 +250,7 @@ export class AuthService {
         id: userId,
       },
       data: {
-        refresh_token: "123",
+        refresh_token,
       },
     });
   }
