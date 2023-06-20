@@ -57,11 +57,12 @@ export class AuthService {
         newUser.firstName
       );
 
-      //await this.updateRefreshToken(newUser.id, refresh_token);
+      console.log("access and refresh token right before refresh token update: ", { access_token, refresh_token })
+      await this.updateRefreshToken(newUser.id, refresh_token);
+      console.log("access and refresh token right after refresh token update: ", { access_token, refresh_token })
 
       response.cookie("refresh_token", refresh_token, { httpOnly: true });
 
-      console.log("access and refresh token right before being returned: ", { access_token, refresh_token })
       return { access_token };
     } catch (err) {
       if (PrismaClientKnownRequestError)
