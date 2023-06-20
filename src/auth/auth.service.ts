@@ -57,10 +57,7 @@ export class AuthService {
         newUser.firstName
       );
 
-      console.log({ newUser })
-      console.log("access and refresh token right before refresh token update: ", { access_token, refresh_token })
-      await this.updateRefreshToken(newUser.id, refresh_token).catch(err => console.log(err));
-      console.log("access and refresh token right after refresh token update: ", { access_token, refresh_token })
+      await this.updateRefreshToken(newUser.id, refresh_token).catch(err => err);
 
       response.cookie("refresh_token", refresh_token, { httpOnly: true });
 
