@@ -223,15 +223,6 @@ export class AuthService {
   ): Promise<Tokens> {
     const payload = { sub: id, email, firstName, lastName };
 
-    console.log({
-      accessTokenSecret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
-      jwtAccessTokenRefresh: this.configService.get<string>(
-        "JWT_ACCESS_TOKEN_REFRESH"
-      ),
-      refreshTokenSecret: this.configService.get<string>("REFRESH_TOKEN_SECRET"),
-      jwtRefreshTokenRefresh: this.configService.get<string>("JWT_REFRESH_TOKEN_REFRESH")
-    });
-
     const accessToken = this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>("ACCESS_TOKEN_SECRET"),
       expiresIn: this.configService.get<string>("JWT_ACCESS_TOKEN_REFRESH"),
@@ -246,6 +237,8 @@ export class AuthService {
       accessToken,
       refreshToken,
     ]);
+
+    console.log({ access_token, refresh_token })
 
     return { access_token, refresh_token };
   }
