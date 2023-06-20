@@ -57,7 +57,7 @@ export class AuthService {
         newUser.firstName
       );
 
-      await this.updateRefreshToken(newUser.id, refresh_token);
+      //await this.updateRefreshToken(newUser.id, refresh_token);
 
       response.cookie("refresh_token", refresh_token, { httpOnly: true });
 
