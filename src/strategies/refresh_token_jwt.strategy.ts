@@ -24,6 +24,7 @@ export class RtJwtStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
 
   private static extractFromCookie(request: Request): string | null {
     const token: string | null = request.cookies["refresh_token"];
+    console.log("Current refresh token: ", { token, request })
     if (!token) throw new UnauthorizedException("Refresh token not found");
     return token;
   }
