@@ -59,7 +59,7 @@ export class AuthService {
 
       await this.updateRefreshToken(newUser.id, refresh_token).catch(err => console.log(err));
 
-      response.cookie("refresh_token", refresh_token, { httpOnly: true });
+      response.cookie("refresh_token", refresh_token, { httpOnly: true, sameSite: "none", secure: true });
 
       return { access_token };
     } catch (err) {
@@ -96,7 +96,7 @@ export class AuthService {
 
       await this.updateRefreshToken(user.id, refresh_token).catch(err => console.log(err));
 
-      response.cookie("refresh_token", refresh_token, { httpOnly: true });
+      response.cookie("refresh_token", refresh_token, { httpOnly: true, sameSite: "none", secure: true });
       return {
         access_token,
       };
