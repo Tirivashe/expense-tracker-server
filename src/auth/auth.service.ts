@@ -113,7 +113,6 @@ export class AuthService {
   ): Promise<{ access_token: string }> {
     try {
       const refresh_token: string = request.cookies["refresh_token"];
-      console.log({ refresh_token })
 
       if (!refresh_token)
         throw new ForbiddenException(
